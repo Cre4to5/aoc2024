@@ -8,6 +8,7 @@ import bs4.element
 import html
 import os.path
 import argparse
+from dotenv import load_dotenv, dotenv_values
 
 # adapated from aocd internals
 def get_puzzle(session=None, day=None, year=None):
@@ -62,11 +63,6 @@ def write(day, tests, dirname, dry=True):
             with open(name, 'w') as f:
                 f.write(tests)
 
-def getSession():
-    __location__ = os.path.realpath(os.path.join(os.path.expanduser('~'),".config/aocd/token.txt"))
-    with open(__location__, "r") as f:
-        return f.readline().strip()
-
 parser = argparse.ArgumentParser(description='AOC test input scraper')
 parser.add_argument("day", nargs="?", type=int)
 parser.add_argument("year", nargs="?", type=int)
@@ -81,8 +77,8 @@ def getlines(day):
 
 def main():
     args = parser.parse_args()
-
-    puzzle = get_puzzle(session=getSession(), day=args.day, year=args.year)
+    load_dotenv()
+    puzzle = get_puzzle(session=os.getenv('AOC_SESSION'), day=args.day, year=args.year)
     tests = puzzle.input_data
     write(puzzle.day, tests, dirname=args.dir, dry=args.dry)
 
