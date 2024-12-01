@@ -75,6 +75,9 @@ parser.add_argument('--dry', '-d', action='store_true',
 parser.add_argument('--dir', type=str,
                     help='Override target directory')
 
+def getlines(day):
+    with open(f"./inputs/{day}.txt", "r")as f:
+        return f.readlines()
 
 def main():
     args = parser.parse_args()
