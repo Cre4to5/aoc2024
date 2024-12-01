@@ -2,7 +2,7 @@
 #https://gist.github.com/msullivan/17a6abba8281e5610e189db9d82b925c
 
 from aocd.get import current_day, most_recent_year
-from aocd.models import default_user, Puzzle
+from aocd.models import default_user, Puzzle, User
 import bs4
 import bs4.element
 import html
@@ -55,14 +55,17 @@ def write(day, tests, dirname, dry=True):
     if not dry:
         os.makedirs(dirname, exist_ok=True)
 
-    for i, test in enumerate(tests):
-        name = os.path.join(dirname, f"{day}_{str(i + 1)}.txt")
+        name = os.path.join(dirname, f"{day}.txt")
         print(f'==== {name}')
-        print(test)
+        print(tests)
         if not dry:
             with open(name, 'w') as f:
-                f.write(test)
+                f.write(tests)
 
+def getSession():
+    __location__ = os.path.realpath(os.path.join(os.path.expanduser('~'),".config/aocd/token.txt"))
+    with open(__location__, "r") as f:
+        return f.readline().strip()
 
 parser = argparse.ArgumentParser(description='AOC test input scraper')
 parser.add_argument("day", nargs="?", type=int)
@@ -76,8 +79,8 @@ parser.add_argument('--dir', type=str,
 def main():
     args = parser.parse_args()
 
-    puzzle = get_puzzle(day=args.day, year=args.year)
-    tests = slurp(puzzle._soup())
+    puzzle = get_puzzle(session=getSession(), day=args.day, year=args.year)
+    tests = puzzle.input_data
     write(puzzle.day, tests, dirname=args.dir, dry=args.dry)
 
 
