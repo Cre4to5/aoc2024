@@ -30,12 +30,12 @@ def doMuls(input):
     return total
 
 def part1():
-    input = str.join("",getlines(3))
+    input = str.join("",getlines(3).split("\n"))
     total = doMuls(input)
     print(total)
 
 def part2():
-    input = str.join("",getlines(3))
+    input = str.join("",getlines(3).split("\n"))
     dos = input.split("do()")
     new = ""
     for do in dos:

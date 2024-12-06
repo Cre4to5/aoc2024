@@ -8,7 +8,7 @@ import bs4.element
 import html
 import os.path
 import argparse
-from dotenv import load_dotenv, dotenv_values
+from dotenv import load_dotenv, dotenv_values # python-dotenv
 
 # adapated from aocd internals
 def get_puzzle(session=None, day=None, year=None):
@@ -73,12 +73,12 @@ parser.add_argument('--dir', type=str,
 
 def getlines(day):
     with open(f"./inputs/{day}.txt", "r")as f:
-        return f.readlines()
+        return f.read()
 
 def main():
     args = parser.parse_args()
     load_dotenv()
-    puzzle = get_puzzle(session=os.getenv('AOC_SESSION'), day=args.day, year=args.year)
+    puzzle = get_puzzle(session=os.getenv('AOC_SESSION'), day=int(input("day = ")), year=args.year)
     tests = puzzle.input_data
     write(puzzle.day, tests, dirname=args.dir, dry=args.dry)
 

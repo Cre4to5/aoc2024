@@ -13,7 +13,7 @@ def isUnsafe(numbers):
     return False
 
 def part1():
-    lines = getlines(2)
+    lines = getlines(2).split("\n")
     safe = 0
     for line in lines:
         numbers = [int(x.strip()) for x in str.split(line," ")]
@@ -32,7 +32,7 @@ def isSafeAnyway(list):
     return False
 
 def part2():
-    lines = getlines(2)
+    lines = getlines(2).split("\n")
     safe = 0
     for line in lines:
         numbers = [int(x.strip()) for x in str.split(line," ")]

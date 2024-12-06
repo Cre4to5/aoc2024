@@ -1,7 +1,7 @@
 from getInput import getlines
 
 def part1():
-        lines = getlines(1)
+        lines = getlines(1).split("\n")
         list1 = []
         list2 = []
         for line in lines:
@@ -16,7 +16,7 @@ def part1():
         print(totaldist)
 
 def part2():
-        lines = getlines(1)
+        lines = getlines(1).split("\n")
         list1 = []
         list2 = []
         for line in lines:
